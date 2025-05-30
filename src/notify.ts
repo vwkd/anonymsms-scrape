@@ -16,6 +16,8 @@ export async function sendNotification(
   latestNumber: string,
   latestNumberUrl: string,
 ): Promise<void> {
+  console.debug(`Sending notification`);
+
   const res = await fetch(NTFY_BASE_URL, {
     method: "POST",
     headers: {

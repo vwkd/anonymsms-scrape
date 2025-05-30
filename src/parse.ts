@@ -9,6 +9,8 @@ const ELEMENT_SELECTOR = "section.latest-added p.latest-added__title a";
  * @returns latest number and URL
  */
 export function parsePage(html: string): { num: string; url: string } {
+  console.debug(`Parsing number`);
+
   const doc = new DOMParser().parseFromString(html, "text/html");
 
   const element = doc.querySelector(ELEMENT_SELECTOR);
