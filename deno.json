@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "start": "deno run -NE --env-file=.env --unstable-cron  src/main.ts"
+    "start": "deno run -NE --env-file=.env --unstable-cron --unstable-kv  src/main.ts"
   },
   "imports": {
     "@b-fuze/deno-dom": "jsr:@b-fuze/deno-dom@^0.1.49"
