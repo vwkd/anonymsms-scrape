@@ -21,17 +21,9 @@ let currentNum: string | null = null;
  * - sends a notification if it has changed.
  */
 async function checkNumber(): Promise<void> {
-  console.debug(`Checking current number`);
-
   if (!currentNum) {
     currentNum = (await kv.get<string>(KV_PREFIX)).value;
   }
-
-  console.debug(
-    currentNum
-      ? `Got current number: '${currentNum}'`
-      : "Got no current number",
-  );
 
   const html = await getPage();
 
@@ -41,13 +33,15 @@ async function checkNumber(): Promise<void> {
 
   const { num, url } = parsePage(html);
 
-  console.debug(`Got new number: '${num}'`);
-
   if (!currentNum || num !== currentNum) {
+    console.debug(`Got new number: '${num}'`);
+
     currentNum = num;
     await kv.set(KV_PREFIX, num);
 
     await sendNotification(num, url);
+  } else {
+    console.debug("No new number");
   }
 }
 
