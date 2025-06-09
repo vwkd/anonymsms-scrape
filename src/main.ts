@@ -49,4 +49,28 @@ console.info(`Starting AnonymSMS notifier on schedule '${CRON_SCHEDULE}'...`);
 
 const kv = await Deno.openKv();
 
+Deno.serve(() =>
+  new Response(
+    `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latest AnonymSMS number</title>
+</head>
+<body>
+  <h1>Latest AnonymSMS Number</h1>
+  <p>The latest AnonymSMS number is: <a href="https://anonymsms.com/number/${
+      currentNum?.slice(1)
+    }/" target="_blank" rel="noreferrer">${currentNum}</a></p>
+</body>
+</html>`,
+    {
+      headers: {
+        "Content-Type": "text/html",
+      },
+    },
+  )
+);
+
 Deno.cron("check latest number", CRON_SCHEDULE, checkNumber);
