@@ -31,7 +31,8 @@ async function checkNumber(): Promise<void> {
     return;
   }
 
-  const { num, url } = parsePage(html);
+  const num = parsePage(html);
+  const url = `https://anonymsms.com/number/${num}/`;
 
   if (!currentNum || num !== currentNum) {
     console.debug(`Got new number: '${num}'`);

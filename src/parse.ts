@@ -6,9 +6,9 @@ const ELEMENT_SELECTOR = "section.latest-added p.latest-added__title a";
  * Parse latest number from AnonymSMS page
  *
  * @param html HTML of AnonymSMS page
- * @returns latest number and URL
+ * @returns latest number
  */
-export function parsePage(html: string): { num: string; url: string } {
+export function parsePage(html: string): string {
   const doc = new DOMParser().parseFromString(html, "text/html");
 
   const element = doc.querySelector(ELEMENT_SELECTOR);
@@ -17,12 +17,7 @@ export function parsePage(html: string): { num: string; url: string } {
     throw new Error(`Element not found`);
   }
 
-  const num = element.textContent.trim();
-  const url = element.getAttribute("href");
+  const latestNumber = element.textContent.trim();
 
-  if (!url) {
-    throw new Error(`URL not found in element`);
-  }
-
-  return { num, url };
+  return latestNumber;
 }
