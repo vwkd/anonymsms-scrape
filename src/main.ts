@@ -27,10 +27,6 @@ async function checkNumber(): Promise<void> {
 
   const html = await getPage();
 
-  if (html == undefined) {
-    return;
-  }
-
   const num = parsePage(html);
   const url = `https://anonymsms.com/number/${num}/`;
 

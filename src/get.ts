@@ -5,12 +5,11 @@ const PAGE_URL = "https://anonymsms.com";
  *
  * @returns HTML of AnonymSMS page
  */
-export async function getPage(): Promise<string | undefined> {
+export async function getPage(): Promise<string> {
   const res = await fetch(PAGE_URL);
 
   if (!res.ok) {
-    console.error(`Failed to fetch page: ${res.status} ${res.statusText}`);
-    return;
+    throw new Error(`Failed to fetch page: ${res.status} ${res.statusText}`);
   }
 
   return res.text();
