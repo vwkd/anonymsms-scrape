@@ -1,41 +1,19 @@
-import { Database } from "./database.ts";
+import { Hono } from "@hono/hono";
+import { getPage } from "./get.ts";
+import { parsePage } from "./parse.ts";
 
-const CRON_SCHEDULE = Deno.env.get("CRON_SCHEDULE");
+console.info(`Starting AnonymSMS scrape...`);
 
-if (!CRON_SCHEDULE) {
-  throw new Error("Missing env var 'CRON_SCHEDULE'");
-}
+const app = new Hono();
 
-console.info(`Starting AnonymSMS notifier on schedule '${CRON_SCHEDULE}'...`);
+app.get(`/newest`, async (c) => {
+  console.debug("Got request:", c.req.path);
 
-const kv = await Deno.openKv();
+  const html = await getPage();
+  const newest = parsePage(html);
+  const newestUrl = `https://anonymsms.com/number/${newest.slice(1)}/`;
 
-const db = await Database.create(kv);
+  return Response.json({ number: newest, url: newestUrl });
+});
 
-Deno.serve(() =>
-  new Response(
-    `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Latest AnonymSMS number</title>
-</head>
-<body>
-  <h1>Latest AnonymSMS Number</h1>
-  <p>The latest AnonymSMS number is: <a href="${db.latestNumberUrl}" target="_blank" rel="noreferrer">${db.latestNumber}</a></p>
-</body>
-</html>`,
-    {
-      headers: {
-        "Content-Type": "text/html",
-      },
-    },
-  )
-);
-
-Deno.cron(
-  "check latest number",
-  CRON_SCHEDULE,
-  db.updateLatestNumber.bind(db),
-);
+Deno.serve(app.fetch);

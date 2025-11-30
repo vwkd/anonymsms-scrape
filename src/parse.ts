@@ -6,7 +6,7 @@ const ELEMENT_SELECTOR = "section.latest-added p.latest-added__title a";
  * Parse latest number from AnonymSMS page
  *
  * @param html HTML of AnonymSMS page
- * @returns latest number
+ * @returns latest number, e.g. `+1234567890`
  */
 export function parsePage(html: string): string {
   const doc = new DOMParser().parseFromString(html, "text/html");

@@ -3,6 +3,7 @@
   "specifiers": {
     "jsr:@b-fuze/deno-dom@~0.1.49": "0.1.49",
     "jsr:@denosaurs/plug@1.0.3": "1.0.3",
+    "jsr:@hono/hono@^4.10.7": "4.10.7",
     "jsr:@std/assert@~0.213.1": "0.213.1",
     "jsr:@std/encoding@0.213.1": "0.213.1",
     "jsr:@std/fmt@0.213.1": "0.213.1",
@@ -25,6 +26,9 @@
         "jsr:@std/fs",
         "jsr:@std/path@0.213.1"
       ]
+    },
+    "@hono/hono@4.10.7": {
+      "integrity": "b60512559d554f20a945e07a6c5f115e57cbd4c024da9217833c8e7b2c90355d"
     },
     "@std/assert@0.213.1": {
       "integrity": "24c28178b30c8e0782c18e8e94ea72b16282207569cdd10ffb9d1d26f2edebfe"
@@ -51,7 +55,8 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@b-fuze/deno-dom@~0.1.49"
+      "jsr:@b-fuze/deno-dom@~0.1.49",
+      "jsr:@hono/hono@^4.10.7"
     ]
   }
 }

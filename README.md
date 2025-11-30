@@ -1,6 +1,6 @@
 # README
 
-Notify when new number is added on AnonymSMS
+Scrape newest number from AnonymSMS
 
 
 
@@ -11,16 +11,14 @@ Notify when new number is added on AnonymSMS
 
 
 ## Usage
-
-- set env variables in `.env`
-
-```env
-NTFY_TOPIC=foobar
-CRON_SCHEDULE="0 * * * *"
-```
-
-- run
+- start server
 
 ```sh
 deno task start
+```
+
+- get newest number, e.g.
+
+```sh
+curl 'http://localhost:8000/newest/' | jq
 ```
